@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+
+<head>
+    <title>Register Page</title>
+</head>
+
+<body>
+    <div id="content">
+        <div class="flex items-center justify-center pt-16 text-white">
+            <div class="w-full max-w-md p-4 mb-4 bg-gray-800 rounded-lg shadow-md">
+                <h2 class="mb-3 text-2xl font-bold text-center">Sign Up</h2>
+                <form th:action="@{/do-register}" method="POST" th:object="${userForm}" class="space-y-2">
+                    <div>
+                        <label for="name" class="block text-sm font-medium">Name</label>
+                        <input type="text" id="name" name="name" th:field="*{name}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
+                        <input type="number" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="govtID" class="block text-sm font-medium">Govt. ID</label>
+                        <input type="number" id="govtID" name="govtID" th:field="*{govtID}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium">Password</label>
+                        <input type="password" id="password" name="password" th:field="*{password}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <button type="submit" class="w-full p-2 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Register</button>
+                </form>
+                <div class="mt-6 space-y-3">
+                    <button class="w-full p-2 bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <i class="mr-2 fab fa-google"></i> Sign up with Google
+                    </button>
+                    <button class="w-full p-2 bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        <i class="mr-2 fab fa-github"></i> Sign up with GitHub
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>console.log("register page")</script>
+</body>
+
+</html>
