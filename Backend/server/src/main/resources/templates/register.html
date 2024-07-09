@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
-
 <head>
     <title>Register Page</title>
 </head>
@@ -8,24 +7,33 @@
 <body>
     <div id="content">
         <div class="flex items-center justify-center pt-16 text-white">
+           
             <div class="w-full max-w-md p-4 mb-4 bg-gray-800 rounded-lg shadow-md">
+                <div data-th-replace="message::messagebox"></div>
                 <h2 class="mb-3 text-2xl font-bold text-center">Sign Up</h2>
-                <form th:action="@{/do-register}" method="POST" th:object="${userForm}" class="space-y-2">
+                <form th:action="@{/do-register}" method="POST" th:object="${userForm}" class="space-y-2" novalidate>
                     <div>
                         <label for="name" class="block text-sm font-medium">Name</label>
                         <input type="text" id="name" name="name" th:field="*{name}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
                     <div>
                         <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
                         <input type="number" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+
                     </div>
                     <div>
                         <label for="govtID" class="block text-sm font-medium">Govt. ID</label>
                         <input type="number" id="govtID" name="govtID" th:field="*{govtID}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('govtID')}" th:errors="*{govtID}"></div>
+
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium">Password</label>
                         <input type="password" id="password" name="password" th:field="*{password}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
                     </div>
                     <button type="submit" class="w-full p-2 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Register</button>
                 </form>
