@@ -7,9 +7,11 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.server.entities.User;
+import com.backend.server.helper.AppConstants;
 import com.backend.server.helper.ResourceNotFoundException;
 import com.backend.server.repositories.UserRepo;
 import com.backend.server.services.UserService;
@@ -20,13 +22,24 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepo userRepo;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 
     @Override
     public User saveUser(User user) {
+
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
+
+        // Password Encoding
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+        
+        logger.info(user.getProvider().toString());
         return userRepo.save(user);
+
     }
 
     @Override
@@ -45,7 +58,9 @@ public class UserServiceImpl implements UserService{
         user2.setPhoneNumberVerified(user.isPhoneNumberVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
-        user2.setGovtID(user.getGovtID());
+        user2.setAge(user.getAge());
+        user2.setGender(user.getGender());
+        user2.setEphoneNumber(user.getEphoneNumber());
 
         // Save user in data base
         User save = userRepo.save(user2);
@@ -69,5 +84,10 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
+    
+    // @Override
+    // public Optional<User> getUserByPhoneNumber(String phoneNumber) {
+    //     return userRepo.findByPhoneNumber(phoneNumber);
+    // }
 
 }

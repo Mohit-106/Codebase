@@ -70,9 +70,12 @@ public class pageController {
 
         User user = new User();
         user.setName(userForm.getName());
-        user.setGovtID(userForm.getGovtID());
         user.setPassword(userForm.getPassword());
         user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setAge(userForm.getAge());
+        user.setGender(userForm.getGender());
+        user.setEphoneNumber(userForm.getEphoneNumber());
+
         User saveUser = userService.saveUser(user);
 
 

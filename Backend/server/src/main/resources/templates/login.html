@@ -4,10 +4,31 @@
     <title>Login Page</title>
 </head>
 <body>
-    <div id="content" class="m-4">
-        <h1>Login Page</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nisi tempore a ad. Voluptatum quis illo quasi dolorum velit. Quod itaque autem quae a doloremque, blanditiis beatae quos soluta eum.</p>
-    </div>nt
+    <div id="content">
+        <div class="flex items-center justify-center pt-16 text-white">
+            <div class="w-full max-w-md p-4 mb-4 bg-gray-800 rounded-lg shadow-md">                 
+                <h2 class="mb-3 text-2xl font-bold text-center">Log In</h2>
+                <div class = "text-center text-red-600 " th:if="${param.error}"> Invalid username or password</div>
+                <div class = "text-center text-green-600" th:if="${param.logout}">You have been logged out</div>
+                <form  method="post" data-th-action="@{'/authenticate'}" class="space-y-2" novalidate>
+                    <!-- <div>
+                        <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
+                        <input type="number" id="phoneNumber" name="phoneNumber"  class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div> -->
+                    <div>
+                        <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium">Password</label>
+                        <input type="password" id="password" name="password" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                    </div>
+                    <button type="submit" class="w-full p-2 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+   
     <script>console.log("login page")</script>
 </body>
 </html>
