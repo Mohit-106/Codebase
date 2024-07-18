@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 import com.backend.server.entities.User;
 @Repository
 public interface UserRepo extends JpaRepository<User,String>{
+    Optional<User> findByPhoneNumber(String phoneNumber);
 }

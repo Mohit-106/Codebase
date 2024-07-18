@@ -6,7 +6,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.backend.server.forms.UserForm;
+import com.backend.server.helper.Message;
+import com.backend.server.helper.MessageType;
 import com.backend.server.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+
 import com.backend.server.entities.User;
 
 import org.springframework.ui.Model;
@@ -54,16 +61,26 @@ public class pageController {
     }
 
      @RequestMapping(value = "/do-register", method=RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm){      
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session){      
 
         // Creating user from user form 
+       if(rBindingResult.hasErrors()){
+          return "register";
+       }
 
         User user = new User();
         user.setName(userForm.getName());
-        user.setGovtID(userForm.getGovtID());
         user.setPassword(userForm.getPassword());
         user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setAge(userForm.getAge());
+        user.setGender(userForm.getGender());
+        user.setEphoneNumber(userForm.getEphoneNumber());
+
         User saveUser = userService.saveUser(user);
+
+
+        Message message= Message.builder().content("You have registered successfully").type(MessageType.green).build();
+        session.setAttribute("message", message);
       
         return "redirect:/register";
     }
