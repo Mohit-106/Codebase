@@ -76,8 +76,15 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("androidx.paging:paging-runtime:$3.3.0")
+    implementation("androidx.paging:paging-runtime:3.3.0")
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation("androidx.compose.ui:ui:1.6.8")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
+
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.8")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
 }
