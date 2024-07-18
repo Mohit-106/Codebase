@@ -1,5 +1,6 @@
 package com.example.tcnh.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tcnh.domain.usecases.AuthUseCase
@@ -34,7 +35,7 @@ class AuthViewModel @Inject constructor(
             event.collect { event ->
                 when (event) {
                     is AuthIntent.Login -> login(event.username, event.password)
-                    is AuthIntent.Signup -> signup(event.username, event.password)
+                    is AuthIntent.Signup -> signup(event.username, event.contact, event.gender, event.age, event.emergencyContact,event.password)
                 }
             }
         }
@@ -52,14 +53,15 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    private fun signup(username: String, password: String) {
+    private fun signup(username: String, contact: String, gender: String, age: String, emergencyContact: String,password: String ) {
+        Log.d("TAG", "signup: ")
         viewModelScope.launch {
             _state.value = AuthState.Loading
-            val result = authUseCase.signup(username, password)
+            val result = authUseCase.signup(username, contact, gender, age, emergencyContact,password)
             _state.value = if (result.isSuccess) {
                 AuthState.Success("Signup Successful")
             } else {
-                AuthState.Error("Signup Failed")
+                AuthState.Error(result.toString())
             }
         }
     }

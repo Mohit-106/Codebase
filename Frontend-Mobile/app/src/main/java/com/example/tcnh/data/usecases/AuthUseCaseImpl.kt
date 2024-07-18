@@ -12,7 +12,11 @@ class AuthUseCaseImpl @Inject constructor(
         return authRepository.login(username, password)
     }
 
-    override suspend fun signup(username: String, password: String): Result<Boolean> {
-        return authRepository.signup(username, password)
+    override suspend fun signup(username: String, contact: String, gender: String, age: String, emergencyContact: String,password: String ): Result<Boolean> {
+        try {
+            return authRepository.signup(username, contact, gender, age, emergencyContact,password)
+        }catch(e : Exception){
+            return Result.failure(e)
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.tcnh.presentation.views
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,19 +50,26 @@ import com.example.tcnh.presentation.intents.AuthIntent
 import com.example.tcnh.presentation.states.AuthState
 import com.example.tcnh.presentation.viewmodels.AuthViewModel
 import com.example.tcnh.ui.theme.CustomFontFamily
-import com.example.tcnh.utils.GenderSwitch
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
 
     val state by viewModel.state.collectAsState()
 
     var username by remember { mutableStateOf("") }
+    var contact by remember { mutableStateOf("") }
+    var emergencyContact by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isMale by remember { mutableStateOf(true) }
     var age by remember { mutableStateOf("") }
-
-
+    val gender by derivedStateOf {
+        if (isMale) {
+            "Male"
+        } else {
+            "Female"
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -99,8 +109,8 @@ fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(22.dp))
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = username,
-                onValueChange = { username = it },
+                value = contact,
+                onValueChange = { contact = it },
                 label = { Text("Contact") }
             )
             Spacer(modifier = Modifier.height(22.dp))
@@ -158,8 +168,8 @@ fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(22.dp))
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = username,
-                onValueChange = { username = it },
+                value = emergencyContact,
+                onValueChange = { emergencyContact = it },
                 label = { Text("Emergency Contact") }
             )
             Spacer(modifier = Modifier.height(22.dp))
@@ -170,7 +180,34 @@ fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
                 label = { Text("Password") },
                 visualTransformation = PasswordVisualTransformation()
             )
-            Spacer(modifier = Modifier.height(50.dp))
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Log.d("TAG", "AuthScreen: $state")
+
+            when (state) {
+                is AuthState.Idle -> {}
+                is AuthState.Loading -> CircularProgressIndicator()
+                is AuthState.Success -> {
+                    Text(
+                        text = "Success",
+                        color = Color.Blue,
+                        fontFamily = CustomFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp
+                    )
+                }
+
+                is AuthState.Error -> Text(
+                    (state as AuthState.Error).message,
+                    color = Color.Blue,
+                    fontFamily = CustomFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
 //        Button(modifier = Modifier.fillMaxWidth(), onClick = { viewModel.onEvent(AuthIntent.Login(username, password)) }) {
 //            Text("Login")
 //        }
@@ -178,7 +215,18 @@ fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(Color.Black),
-                onClick = { viewModel.onEvent(AuthIntent.Signup(username, password)) }) {
+                onClick = {
+                    viewModel.onEvent(
+                        AuthIntent.Signup(
+                            username,
+                            contact,
+                            gender,
+                            age,
+                            emergencyContact,
+                            password
+                        )
+                    )
+                }) {
                 Text(
                     "Signup",
                     fontFamily = CustomFontFamily,
@@ -204,15 +252,6 @@ fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
         }
 
 
-//        when (state) {
-//            is AuthState.Idle -> Text("Idle")
-//            is AuthState.Loading -> CircularProgressIndicator()
-//            is AuthState.Success -> Text((state as AuthState.Success).message)
-//            is AuthState.Error -> Text(
-//                (state as AuthState.Error).message,
-//                color = MaterialTheme.colorScheme.error
-//            )
-//        }
     }
 
 
