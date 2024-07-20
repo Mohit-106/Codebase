@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TCNH</string>
+    <string name="txt_signup">Create New Account</string>
+    <string name="txt_signup_details">Please provide all the required information</string>
+</resources>
