@@ -41,6 +41,9 @@ public class User implements UserDetails{
     @Column(name = "user_name", nullable = false)
     private String name;
 
+    @Column(nullable = true)
+    private String email;
+
     private String gender;
 
     @Getter(AccessLevel.NONE)
@@ -48,10 +51,10 @@ public class User implements UserDetails{
 
     private String age;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true,  nullable = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String ephoneNumber;
      
     @Getter(AccessLevel.NONE)

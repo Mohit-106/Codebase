@@ -24,11 +24,11 @@ public class UserForm {
     private String age;
     @NotEmpty
     private String gender;
-    @Size(min = 6, message = "Min 12 Characters is required")
+    @Size(min = 6, message = "Min 6 Characters is required")
     private String password;
-    @Size(min = 10, message = "Min 12 Characters is required")
+    @Size(min = 10, message = "Min 10 Characters is required")
     private String phoneNumber;
-    @Size(min = 10, message = "Min 12 Characters is required")
+    @Size(min = 10, message = "Min 10 Characters is required")
     private String ephoneNumber;
 }
 

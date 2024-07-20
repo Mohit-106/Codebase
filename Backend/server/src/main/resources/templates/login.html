@@ -11,10 +11,6 @@
                 <div class = "text-center text-red-600 " th:if="${param.error}"> Invalid username or password</div>
                 <div class = "text-center text-green-600" th:if="${param.logout}">You have been logged out</div>
                 <form  method="post" data-th-action="@{'/authenticate'}" class="space-y-2" novalidate>
-                    <!-- <div>
-                        <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
-                        <input type="number" id="phoneNumber" name="phoneNumber"  class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                    </div> -->
                     <div>
                         <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
                         <input type="tel" id="phoneNumber" name="phoneNumber" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
@@ -25,6 +21,8 @@
                     </div>
                     <button type="submit" class="w-full p-2 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Log In</button>
                 </form>
+                <button 
+                class="w-full p-2 mt-2 bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"><a data-th-href="@{'/oauth2/authorization/google'}">Log In with Google</a></button>
             </div>
         </div>
     </div>
