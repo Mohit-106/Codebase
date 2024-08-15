@@ -85,9 +85,14 @@ public class UserServiceImpl implements UserService{
         return userRepo.findAll();
     }
     
-    // @Override
-    // public Optional<User> getUserByPhoneNumber(String phoneNumber) {
-    //     return userRepo.findByPhoneNumber(phoneNumber);
-    // }
+  
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        return userRepo.findByPhoneNumber(phoneNumber).orElseThrow(null);
+    }
 
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElseThrow(null);
+    }
 }

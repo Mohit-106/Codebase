@@ -1,5 +1,4 @@
 package com.backend.server.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,9 @@ import com.backend.server.services.impl.SecurityCustomUserDetailService;
 
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Autowired
     private OAuthAuthenticationSuccessHandler handler;
@@ -42,36 +44,45 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
-        // URL protection
         httpSecurity.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers("/home", "/register", "/services", "/login").permitAll();
             authorize.requestMatchers("/user/**").authenticated();
             authorize.anyRequest().permitAll();
         });
 
-        // Add the custom filter before the default form login filter
         httpSecurity.addFilterBefore(customJsonAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
-        // Customized login
+        // for mobile app
         httpSecurity.formLogin(formLogin -> {
-            formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
             formLogin.usernameParameter("phoneNumber");
             formLogin.passwordParameter("password");
-            formLogin.successHandler(new CustomAuthenticationSuccessHandler());
-            formLogin.failureHandler(new CustomAuthenticationFailureHandler());
+        });
+
+        // for web app 
+        httpSecurity.formLogin(formLogin->{
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/auth");
+            formLogin.defaultSuccessUrl("/user/dashboard",true);
+            formLogin.failureForwardUrl("/login?error=true");
+            formLogin.usernameParameter("phoneNumber");
+            formLogin.passwordParameter("password");
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+       
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/logout");
-            logoutForm.logoutSuccessUrl("/login?logout=true");
+            logoutForm.logoutSuccessHandler(customLogoutSuccessHandler);
         });
 
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler);
         });
+
+       
+
 
         return httpSecurity.build();
     }
@@ -85,4 +96,5 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
 }

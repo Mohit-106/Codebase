@@ -8,8 +8,9 @@ public interface UserService {
     User saveUser(User user);
     Optional<User> getUserById(String ID);
     Optional<User> updateUser(User user);
-    
-    // Optional<User> getUserByPhoneNumber(String phoneNumber);
+
+    User getUserByPhoneNumber(String phoneNumber);
+    User getUserByEmail(String phoneNumber);
     
     void deleteUser(String ID);
     boolean isUserExist(String userID);

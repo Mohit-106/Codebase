@@ -5,11 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title data-th-replace="${title}"></title>
 </head>
-<body class="pt-16">
+<body class="pt-10">
     <!-- Common header -->
-    <div data-th-replace="navbar::navbar"></div>
+    <div th:if="${user}">
+        <!-- If user is logged in -->
+        <div th:replace="user/user_navbar::user-navbar"></div>
+    </div>
+    <div th:unless="${user}">
+        <!-- If user is not logged in -->
+        <div th:replace="navbar::navbar"></div>
+    </div>
+
+    <div th:if="${user}" class="mt-16">
+        <div data-th-replace="~{user/sidebar::sidebar}">
+        </div>
+    </div>
+    
     <section data-th-replace="${content}">
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
