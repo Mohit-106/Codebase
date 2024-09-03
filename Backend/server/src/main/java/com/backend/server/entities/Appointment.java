@@ -12,6 +12,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -19,15 +24,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 
 public class Appointment {
     @Id
     private String id;
     @Column(unique = true)
-    private String tokenNo;
+    private int tokenNo;
     private String doctorID;
     private String patientID;
     private String date;
     private String time;
+    @Enumerated(EnumType.ORDINAL)
     private AppointmentStatus status = AppointmentStatus.Pending;
+    private String isScheduled;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JsonIgnore
+    private User user;
+
+    public void setIsScheduled(String isScheduled) {
+        this.isScheduled = isScheduled;
+    }
+    
 }

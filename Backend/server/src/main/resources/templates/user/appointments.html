@@ -2,69 +2,105 @@
 <html lang="en" th:replace="~{./base::parent(~{::#content},~{::title},~{::script})}">
 
 <head>
-    <title>Appointments Page</title>
+  <title>Appointments Page</title>
 </head>
 
 <body>
-    <div id="content" class="sm:pl-64" style="height: 1000px">
-        <div class="flex justify-center align-middle">
-            <div class="relative p-6 overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Token Number</th>
-                            <th scope="col" class="px-6 py-3">Patient ID</th>
-                            <th scope="col" class="px-6 py-3">Dr. ID</th>
-                            <th scope="col" class="px-6 py-3">Preferred Time Slot</th>
-                            <th scope="col" class="px-6 py-3">Preferred Date</th>
-                            <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-th-object="${c}" data-th-each="c : ${appoitments}"
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th data-th-text="*{tokenNo}" 
-                            scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                  
-                            </th>
-                            <th data-th-text="*{patientID}" 
-                            scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                  
-                            </th>
-                            <th data-th-text="*{doctorID}" scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                No Available
-                            </th>
-                            <td data-th-text="*{time}" class="px-6 py-4">
-                                No Available
-                            </td>
-                            <td data-th-text="*{date}" class="px-6 py-4">No Available</td>
-                            </td>
-                            <td data-th-text="*{status}" class="px-6 py-4">
-                            </td>
-                            <td class="flex items-center justify-center gap-1 px-6 py-4">
-                                <button>
-                                    <i class="w-6 h-6 fa-solid fa-trash"></i>
-                                </button>
-                                <button>
-                                    <a> <i class="w-6 h-6 fa-solid fa-pen"></i></a>
-                                </button>
-                                <button>
-                                    <i class="w-6 h-6 fa-solid fa-eye"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+  <div id="content" class="sm:pl-64" style="height: 1000px">
+    <div class="flex justify-center align-middle">
+      <div class="relative p-6 overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Token Number</th>
+              <th scope="col" class="px-6 py-3">Patient ID</th>
+              <th scope="col" class="px-6 py-3">Dr. ID</th>
+              <th scope="col" class="px-6 py-3">Time Slot</th>
+              <th scope="col" class="px-6 py-3">Date</th>
+              <th scope="col" class="px-6 py-3">Status</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-th-object="${c}" data-th-each="c : ${appointmentPage.content}"
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <th data-th-text="*{tokenNo}" scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+              </th>
+              <th data-th-text="*{patientID}" scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+              </th>
+              <th data-th-text="*{doctorID}" scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                No Available
+              </th>
+              <td data-th-text="*{time}" class="px-6 py-4">
+                No Available
+              </td>
+              <td data-th-text="*{date}" class="px-6 py-4">No Available</td>
+              </td>
+              <td>
+                <span th:class="'base ' + (${c.isScheduled}?'text-green-500' : 'text-red-500')">
+                  <span th:text="${c.status}"></span>
+              </span>
+              </td>
+              <td class="flex items-center justify-center gap-1 px-6 py-4">
+                <button th:data-id="${c.id}" th:onclick="deleteAppointment(this.getAttribute('data-id'))">
+                  <i class="w-6 h-6 fa-solid fa-trash"></i>
+                </button>
+                <button>
+                  <a data-th-href="@{'/appointment/view/'+*{id}}"> <i class="w-6 h-6 fa-solid fa-pen"></i></a>
+                </button>
+                <button th:data-docid="${c.doctorID}" th:data-id="${c.patientID}"
+                  th:onclick="loaddata(this.getAttribute('data-id'),this.getAttribute('data-docid'))">
+                  <i class="w-6 h-6 fa-solid fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination Component -->
+        <div data-th-if="${appointmentPage.totalElements>0}"
+          class="p-5 text-center bg-white pagination_container dark:bg-gray-800">
+          <nav aria-label="Page navigation example">
+            <ul class="inline-flex h-10 -space-x-px text-base">
+              <li data-th-unless="${appointmentPage.first}">
+                <a data-th-href="@{'/user/appointments?size='+${pageSize}+'&page=' + ${appointmentPage.number-1}}"
+                  href="#"
+                  class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 border-e-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+              </li>
+              <li data-th-each="index :  ${#numbers.sequence(0,appointmentPage.totalPages-1)}">
+                <a data-th-href="@{'/user/appointments?size='+${pageSize}+'&page='+${index}}" href="#"
+                  data-th-classappend="${index==appointmentPage.number? 'bg-blue-100  dark:bg-gray-600' : 'bg-white dark:bg-gray-800'}"
+                  class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  <span data-th-text="${index+1}"></span>
+                </a>
+              </li>
+
+              <li data-th-unless="${appointmentPage.last}">
+                <a data-th-href="@{'/user/appointments?size='+${pageSize}+'&page=' + ${appointmentPage.number+1}}"
+                  href="#"
+                  class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
+      </div>
     </div>
-    <script>
-        console.log("Contacts page");
-    </script>
+
+    <div data-th-replace="~{user/appointment_modal::user}">
+
+    </div>
+
+
+  </div>
+  <script data-th-src="@{'/js/appointment.js'}"></script>
+  <script>
+    console.log("Contacts page");
+  </script>
 </body>
 
 </html>

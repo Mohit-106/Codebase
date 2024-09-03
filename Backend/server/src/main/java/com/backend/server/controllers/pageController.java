@@ -94,7 +94,6 @@ public class pageController {
         if (rBindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation errors occurred");
         }
-
         User user = new User();
         user.setName(userForm.getName());
         user.setPassword(userForm.getPassword());
@@ -106,6 +105,5 @@ public class pageController {
         System.out.println(userForm.getPhoneNumber());
         User savedUser = userService.saveUser(user);
         return ResponseEntity.ok(savedUser);
-        
     }
 }

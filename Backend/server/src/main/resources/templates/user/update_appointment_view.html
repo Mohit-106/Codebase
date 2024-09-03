@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+
+<head>
+  <title>Update Appointment</title>
+</head>
+
+<body>
+  <div id="content">
+    <div class="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+      <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h2 class="mb-6 text-2xl font-bold text-gray-800">Schedule Appointment</h2>
+        <form class="mt-8" data-th-action="@{'/appointment/update/'+${appointment.id}}"
+          data-th-object="${appointment}" method="post">
+          <!-- Status Dropdown -->
+          <div class="mb-4">
+            <label for="status" class="block mb-2 font-semibold text-gray-700">Status</label>
+            <select id="status" name="status" class="block w-full p-2 border border-gray-300 rounded"
+              data-th-field="*{status}">
+              <option value="Pending" data-th:selected="${appointment.status == 'Pending'}">Pending</option>
+              <option value="Scheduled" data-th:selected="${appointment.status == 'Scheduled'}">Scheduled</option>
+              <option value="Rescheduled" data-th:selected="${appointment.status == 'Rescheduled'}">Rescheduled</option>
+              <option value="Delayed" data-th:selected="${appointment.status == 'Delayed'}">Delayed</option>
+              <option value="Cancelled" data-th:selected="${appointment.status == 'Cancelled'}">Cancelled</option>
+              <option value="Completed" data-th:selected="${appointment.status == 'Completed'}">Completed</option>
+              <option value="Rejected" data-th:selected="${appointment.status == 'Rejected'}">Rejected</option>
+            </select>
+          </div>
+          
+          <!-- Date Input -->
+          <div class="mb-4">
+            <label for="date" class="block mb-2 font-semibold text-gray-700">Date</label>
+            <input type="date" id="date" name="date" class="block w-full p-2 border border-gray-300 rounded"
+              data-th-field="*{date}" data-th-value="${appointment.date}">
+          </div>
+
+          <!-- Time Input -->
+          <div class="mb-4">
+            <label for="time" class="block mb-2 font-semibold text-gray-700">Time</label>
+            <input type="time" id="time" name="time" class="block w-full p-2 border border-gray-300 rounded"
+              data-th-field="*{time}" data-th-value="${appointment.time}">
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex items-center justify-between">
+            <button type="submit" class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script data-th-src="@{'/js/admin.js'}"></script>
+</body>
+
+</html>

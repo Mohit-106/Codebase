@@ -1,4 +1,6 @@
 package com.backend.server.forms;
+import com.backend.server.helper.AppointmentStatus;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,8 @@ public class AppointmentForm {
     private String date;
 
     private String time;
+
+    private AppointmentStatus status = AppointmentStatus.Pending;
 
 }
 
