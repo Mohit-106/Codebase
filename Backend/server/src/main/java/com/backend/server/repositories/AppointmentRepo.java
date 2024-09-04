@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.backend.server.entities.Appointment;
 import com.backend.server.entities.User;
+import com.backend.server.helper.AppointmentStatus;
 
 
 public interface AppointmentRepo extends JpaRepository<Appointment,String>{
@@ -25,5 +26,8 @@ public interface AppointmentRepo extends JpaRepository<Appointment,String>{
     @Query("SELECT a FROM Appointment a WHERE a.user.id = :userId")
     List<Appointment> findByUserId(@Param("userId") String userId);
 
+    Page<Appointment> findByStatus(AppointmentStatus statuskeyword, Pageable pageable);
+    Page<Appointment> findByDoctorIDContaining(String did, Pageable pageable);
+    Page<Appointment> findByPatientIDContaining(String pid, Pageable pageable);
     
 }

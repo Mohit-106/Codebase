@@ -1,4 +1,4 @@
-const viewAppointmentModal = document.getElementById("view_mdoal");
+const viewAppointmentModal = document.getElementById("view_modal");
 const baseURL = "http://localhost:3001";
 
 // options with default values
@@ -12,7 +12,7 @@ const options = {
   },
   onShow: () => {
     setTimeout(() => {
-      contactModal.classList.add("scale-100");
+      AppointmentModal.classList.add("scale-100");
     }, 50);
   },
   onToggle: () => {
@@ -22,7 +22,7 @@ const options = {
 
 // instance options object
 const instanceOptions = {
-  id: "view_mdoal",
+  id: "view_modal",
   override: true,
 };
 
@@ -98,11 +98,13 @@ async function deleteAppointment(id) {
       setTimeout(() => {
         const url = `${baseURL}/user/appointments/delete/` + id;
         window.location.replace(url);
-      }, 2000); // 2000ms = 2 seconds
+      }, 1000); // 2000ms = 2 seconds
 
     }
   });
 }
+
+
 
 
 

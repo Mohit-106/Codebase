@@ -98,4 +98,31 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepo.save(OldAppointment);
     }
 
+
+
+
+    @Override
+    public Page<Appointment> searchByStatus(AppointmentStatus status, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return appointmentRepo.findByStatus(status, pageable);
+    }
+
+    @Override
+    public Page<Appointment> searchByPatientId(String patientid, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return appointmentRepo.findByPatientIDContaining(patientid, pageable);
+    }
+
+    @Override
+    public Page<Appointment> searchByDoctorId(String docid, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return appointmentRepo.findByDoctorIDContaining(docid, pageable);
+    }
+
+   
+
+
 }

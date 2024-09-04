@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 
 import com.backend.server.entities.Appointment;
+import com.backend.server.helper.AppointmentStatus;
 
 
 public interface AppointmentService {
@@ -31,5 +32,10 @@ public interface AppointmentService {
     Appointment getById(String id);
 
     Appointment update(Appointment appointment);
+
+    Page<Appointment> searchByStatus(AppointmentStatus status, int size, int page, String sortBy, String order);
+    Page<Appointment> searchByPatientId(String patientid, int size, int page, String sortBy, String order);
+    Page<Appointment> searchByDoctorId(String docid, int size, int page, String sortBy, String order);
+
 
 }
