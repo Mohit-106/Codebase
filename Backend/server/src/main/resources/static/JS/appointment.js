@@ -46,7 +46,6 @@ async function loaddata(id, docid) {
     const data = await (await fetch(`${baseURL}/api/patient/${id}`)).json();
     const Docdata = await (await fetch(`${baseURL}/doctors/${docid}`)).json();
     
-
     const DocnameElement = document.querySelector("#doc_name");
     const specialization = document.querySelector("#doc_specialization");
 
@@ -97,6 +96,33 @@ async function deleteAppointment(id) {
       // Add a delay before redirecting
       setTimeout(() => {
         const url = `${baseURL}/user/appointments/delete/` + id;
+        window.location.replace(url);
+      }, 1000); // 2000ms = 2 seconds
+
+    }
+  });
+}
+
+async function deleteAnnouncement(id) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Announcement has been deleted.",
+        icon: "success",
+    });
+
+      // Add a delay before redirecting
+      setTimeout(() => {
+        const url = `${baseURL}/user/announcement/delete/` + id;
         window.location.replace(url);
       }, 1000); // 2000ms = 2 seconds
 

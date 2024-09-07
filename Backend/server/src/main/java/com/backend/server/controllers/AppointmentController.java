@@ -7,15 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.backend.server.forms.AppointmentForm;
+import com.backend.server.helper.AppConstants;
 import com.backend.server.services.AppointmentService;
 
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
-
 import com.backend.server.entities.Appointment;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +29,6 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // REST API for Android
     @PostMapping("/add")
     public ResponseEntity<?> addAppointment(@RequestBody @Valid AppointmentForm appointmentForm,
             BindingResult rBindingResult, Authentication authentication) {
@@ -54,8 +51,7 @@ public class AppointmentController {
     public ResponseEntity<Page<Appointment>> getAppointmentsByPatientId(
             @PathVariable("id") String patientId,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
-
+            @RequestParam(defaultValue = AppConstants.PAGE_SIZE+"") int size) {
         Page<Appointment> appointments = appointmentService.findByPatientId(patientId, page, size);
         if (appointments.isEmpty()) {
             return ResponseEntity.notFound().build();
