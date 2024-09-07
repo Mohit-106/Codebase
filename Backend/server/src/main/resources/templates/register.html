@@ -1,60 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+
 <head>
     <title>Register Page</title>
 </head>
 
 <body>
     <div id="content">
-        <div class="flex items-center justify-center pt-16 text-white">
-           
-            <div class="w-full max-w-md p-4 mb-4 bg-gray-800 rounded-lg shadow-md">
+        <div class="flex items-center justify-center pt-16 ">
+
+            <div class="w-full max-w-md p-4 mb-4 bg-white rounded-lg shadow-md">
                 <div data-th-replace="message::messagebox"></div>
-                <h2 class="mb-3 text-2xl font-bold text-center">Sign Up</h2>
-                <form th:action="@{/do-register}" method="POST" th:object="${userForm}" class="space-y-2" novalidate>
-                    <div>
+                <h2 class=" text-[#005D90] mb-3 text-2xl font-bold text-center ">Sign Up</h2>
+                <form th:action="@{/do-register}" method="POST" th:object="${userForm}" class="space-y-2 " novalidate>
+                    <div class="text-[#005D90]">
                         <label for="name" class="block text-sm font-medium">Name</label>
-                        <input type="text" id="name" name="name" th:field="*{name}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        <input style="border: 1px solid #005D90;" type="text" id="name" name="name" th:field="*{name}"
+                            class="w-full p-2 rounded-lg">
+                        <div class="px-1 py-1 text-sm text-red-600 " th:if="${#fields.hasErrors('name')}"
+                            th:errors="*{name}">
+                        </div>
                     </div>
-                    <div>
+                    <div class="text-[#005D90]">
                         <label for="phoneNumber" class="block text-sm font-medium">Contact Number</label>
-                        <input type="number" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+                        <input style="border: 1px solid #005D90;" type="number" id="phoneNumber" name="phoneNumber"
+                            th:field="*{phoneNumber}" class="w-full p-2 border rounded-lg bg-gray-">
+                        <div class="px-1 py-1 text-sm text-red-600 " th:if="${#fields.hasErrors('phoneNumber')}"
+                            th:errors="*{phoneNumber}"></div>
 
                     </div>
-                    <div>
+                    <div class="text-[#005D90]">
                         <label for="ephoneNumber" class="block text-sm font-medium">Emergency Contact Number</label>
-                        <input type="number" id="ephoneNumber" name="ephoneNumber" th:field="*{ephoneNumber}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('ephoneNumber')}" th:errors="*{ephoneNumber}"></div>
+                        <input style="border: 1px solid #005D90;" type="number" id="ephoneNumber" name="ephoneNumber"
+                            th:field="*{ephoneNumber}" class="w-full p-2 rounded-lg">
+                        <div class="px-1 py-1 text-sm text-red-600" th:if="${#fields.hasErrors('ephoneNumber')}"
+                            th:errors="*{ephoneNumber}"></div>
 
                     </div>
-                    <div>
+                    <div class="text-[#005D90]">
                         <label for="age" class="block text-sm font-medium">Age</label>
-                        <input type="number" id="age" name="age" th:field="*{age}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+                        <input style="border: 1px solid #005D90;" type="number" id="age" name="age" th:field="*{age}"
+                            class="w-full p-2 rounded-lg">
+                        <div class="px-1 py-1 text-sm text-red-600 " th:if="${#fields.hasErrors('age')}"
+                            th:errors="*{age}">
+                        </div>
                     </div>
-                    <div>
+                    <div class="text-[#005D90]">
                         <label for="gender" class="block text-sm font-medium">Gender</label>
-                        <select id="gender" name="gender" th:field="*{gender}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <select style="border: 1px solid #005D90;" id="gender" name="gender" th:field="*{gender}"
+                            class="w-full p-2 rounded-lg">
                             <option value="" disabled selected>Select your gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+                        <div class="px-1 py-1 text-sm text-red-600 " th:if="${#fields.hasErrors('gender')}"
+                            th:errors="*{gender}"></div>
                     </div>
-                    <div>
+                    <div class="text-[#005D90]">
                         <label for="password" class="block text-sm font-medium">Password</label>
-                        <input type="password" id="password" name="password" th:field="*{password}" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
-                        <div class="px-1 py-1 text-red-600" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        <input style="border: 1px solid #005D90;" type="password" id="password" name="password"
+                            th:field="*{password}" class="w-full p-2 rounded-lg">
+                        <div class="px-1 py-1 text-sm text-red-600 " th:if="${#fields.hasErrors('password')}"
+                            th:errors="*{password}"></div>
                     </div>
-                    <button type="submit" class="w-full p-2 mt-4 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Register</button>
+                    <button type="submit" class="w-full p-2 mt-4 rounded-lg focus:outline-none focus:ring-2"
+                        style="border: 1px solid #005D90; color: white; background-color: #005D90; transition: all 0.3s;"
+                        onmouseover="this.style.backgroundColor='white'; this.style.color='#005D90';"
+                        onmouseout="this.style.backgroundColor='#005D90'; this.style.color='white';">
+                        Register
+                    </button>
+
                 </form>
-                
-                </div>
+
             </div>
         </div>
+    </div>
     </div>
     <script>console.log("register page")</script>
 </body>

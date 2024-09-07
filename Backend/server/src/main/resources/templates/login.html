@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+
 <head>
     <title>Login Page</title>
 </head>
+
 <body>
     <div id="content">
-        <div class="flex items-center justify-center pt-16 text-white">
-            <div class="w-full max-w-md p-4 mb-4 bg-gray-800 rounded-lg shadow-md">                 
-                <h2 class="mb-3 text-2xl font-bold text-center">Log In</h2>
-                <div class = "text-center text-red-600 " th:if="${param.error}"> Invalid username or password</div>
-                <div class = "text-center text-green-600" th:if="${param.logout}">You have been logged out</div>
-                <form  method="post" data-th-action="@{'/auth'}" class="space-y-2" novalidate>
-                    <div>
+        <div class="flex items-center justify-center pt-16 ">
+            <div class="w-full max-w-md p-4 mb-4 bg-white rounded-lg shadow-md">
+                <h2 class="text-[#005D90] mb-3 text-2xl font-bold text-center">Log In</h2>
+                <div class="text-center text-red-600 " th:if="${param.error}"> Invalid username or password</div>
+                <div class="text-center text-green-600" th:if="${param.logout}">You have been logged out</div>
+                <form method="post" data-th-action="@{'/auth'}" class="space-y-2" novalidate>
+                    <div class="text-[#005D90] ">
                         <label for="phoneNumber" class="block text-sm font-medium">Phone Number</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <input style="border: 1px solid #005D90;" type="tel" id="phoneNumber" name="phoneNumber"
+                            class="w-full p-2 rounded-lg">
                     </div>
-                    <div>
+                    <div class="text-[#005D90] ">
                         <label for="password" class="block text-sm font-medium">Password</label>
-                        <input type="password" id="password" name="password" class="w-full p-2 bg-gray-900 border border-gray-900 rounded-lg">
+                        <input style="border: 1px solid #005D90;" type="password" id="password" name="password"
+                            class="w-full p-2 rounded-lg">
                     </div>
-                    <button type="submit" class="w-full p-2 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Log In</button>
+                    <button type="submit"
+                        class="w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        style="border: 1px solid #005D90; color: white; background-color: #005D90; transition: all 0.3s;"
+                        onmouseover="this.style.backgroundColor='white'; this.style.color='#005D90';"
+                        onmouseout="this.style.backgroundColor='#005D90'; this.style.color='white';">Log In</button>
                 </form>
                 <div class="mt-4 space-y-3">
-                    <button class="w-full p-2 bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        <i class="mr-2 fab fa-google"></i> <a data-th-href="@{'/oauth2/authorization/google'}">Log In with Google</a>
+                    <button
+                        class="w-full p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <i class="mr-2 fab fa-google"></i> <a data-th-href="@{'/oauth2/authorization/google'}">Log In
+                            with Google</a>
                     </button>
                 </div>
             </div>
         </div>
     </div>
-   
+
     <script>console.log("login page")</script>
 </body>
+
 </html>

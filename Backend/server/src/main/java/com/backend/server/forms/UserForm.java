@@ -20,9 +20,9 @@ import lombok.ToString;
 public class UserForm {
     @Size(min = 3, message = "Min 3 Characters is required")
     private String name;
-    @NotEmpty
+    @NotEmpty(message = "Must not be empty")
     private String age;
-    @NotEmpty
+    @NotEmpty(message = "Must not be empty")
     private String gender;
     @Size(min = 6, message = "Min 6 Characters is required")
     private String password;
