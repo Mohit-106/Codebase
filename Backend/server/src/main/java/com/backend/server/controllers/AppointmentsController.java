@@ -49,7 +49,7 @@ public class AppointmentsController {
 
     // Search Appointment
     @GetMapping("/search")
-    public String searchHandler(@RequestParam("field") String field,@RequestParam(value="page", defaultValue = "5") int size ,@RequestParam("keyword") String value, @RequestParam(value="page", defaultValue = "0") int page, @RequestParam(value="sortBy",defaultValue = "tokenNo") String sortBy, @RequestParam(value="direction",defaultValue = "asc") String direction, Model model){
+    public String searchHandler(@RequestParam("field") String field,@RequestParam(value="page", defaultValue = AppConstants.PAGE_SIZE+"") int size ,@RequestParam("keyword") String value, @RequestParam(value="page", defaultValue = "0") int page, @RequestParam(value="sortBy",defaultValue = "tokenNo") String sortBy, @RequestParam(value="direction",defaultValue = "asc") String direction, Model model){
 
         Page<Appointment> appointmentPage = null;
         if(field.equalsIgnoreCase("Status")){

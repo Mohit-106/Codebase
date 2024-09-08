@@ -6,14 +6,14 @@
 </head>
 
 <body>
-    <div id="content" class="sm:pl-64" style="height: 1000px">
+    <div id="content" class="sm:pl-64">
         <div class="flex justify-center align-middle"></div>
         <div class="relative p-6 overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-[#005D90]">
                     <tr>
                         <th scope="col" class="px-6 py-3">Content</th>
-                        <th scope="col" class="px-6 py-3">Date Posted</th>
+                        <th scope="col" class="px-6 py-3">Posted On</th>
                         <th scope="col" class="px-6 py-3">Delete</th>
                     </tr>
                 </thead>
@@ -24,7 +24,7 @@
                         <td class="px-6 py-4" data-th-text="*{createdAt}"></td>
                         <td class="px-6 py-4">
                             <button th:data-id="${c.id}" th:onclick="deleteAnnouncement(this.getAttribute('data-id'))">
-                                <i class="w-6 h-6 fa-solid fa-trash"></i>
+                                <i class="w-6 h-6 fa-solid fa-trash text-[#005D90]"></i>
                               </button>
                         </td>                    
                     </tr>
@@ -42,7 +42,7 @@
                           </li>
                           <li data-th-each="index :  ${#numbers.sequence(0,announcementPage.totalPages-1)}">
                             <a data-th-href="@{'/user/announcements?size'+${pageSize}+'&page='+${index}}" href="#"
-                              data-th-classappend="${index==announcementPage.number? 'bg-blue-100  dark:bg-gray-600' : 'bg-white dark:bg-gray-800'}"
+                              data-th-classappend="${index==announcementPage.number? 'bg-[#005D90] text-white' : 'bg-white dark:bg-gray-800'}"
                               class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                               <span data-th-text="${index+1}"></span>
                             </a>

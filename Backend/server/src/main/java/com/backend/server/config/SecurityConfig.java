@@ -63,7 +63,7 @@ public class SecurityConfig {
         httpSecurity.formLogin(formLogin->{
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/auth");
-            formLogin.defaultSuccessUrl("/user/dashboard",true);
+            formLogin.defaultSuccessUrl("/user/appointments",true);
             formLogin.failureForwardUrl("/login?error=true");
             formLogin.usernameParameter("phoneNumber");
             formLogin.passwordParameter("password");

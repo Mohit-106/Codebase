@@ -9,7 +9,7 @@
   <div id="content">
     <div class="flex items-center justify-center min-h-screen p-4 bg-gray-100">
       <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h2 class="mb-6 text-2xl font-bold text-gray-800">Schedule Appointment</h2>
+        <h2 class="mb-6 text-2xl font-bold text-[#005D90]">Schedule Appointment</h2>
         <form class="mt-8" data-th-action="@{'/appointment/update/'+${appointment.id}}"
           data-th-object="${appointment}" method="post">
           <!-- Status Dropdown -->
@@ -42,9 +42,10 @@
           </div>
 
           <!-- Submit Button -->
-          <div class="flex items-center justify-between">
-            <button type="submit" class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">
+          <div class="flex items-center justify-center">
+            <button type="submit" class="px-4 py-2 font-bold text-white rounded-lg" style="border: 1px solid #005D90; color: white; background-color: #005D90; transition: all 0.3s;">
               Update
+              <i class="p-2 fa-regular fa-pen-to-square"></i>
             </button>
           </div>
         </form>
