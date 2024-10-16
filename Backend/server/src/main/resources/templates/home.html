@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <title>Home Page</title>
+
 </head>
 <body>
-    <div id="content" class="pl-64 m-4">
-        <h1>Home Page</h1>
-        <p>Loremipsum dolor sit amet consectetur adipisicing elit. Optio nisi tempore a ad. Voluptatum quis illo quasi dolorum velit. Quod itaque autem quae a doloremque, blanditiis beatae quos soluta eum.</p>
+    <div id="content" class="flex items-center justify-center min-h-screen px-10 space-x-8">
+        <div class="max-w-md text-center">
+            <p class="mb-4 text-4xl font-bold text-[#005D90]">Welcome to Staff Portal</p>
+            <p class="text-2xl font-semibold text-gray-500">Log In and Get Started</p>
+        </div>
+        <div class="max-w-sm">
+            <img data-th-src="@{'/images/logo.png'}" class="ml-3 h-72" alt="Logo">
+        </div>
     </div>
     <script>console.log("home page")</script>
 </body>
